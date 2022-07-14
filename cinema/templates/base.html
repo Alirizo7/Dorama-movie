@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/owl.theme.green.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-grid.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-reboot.css' %}">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="shortcut icon" href="../static/img/Frame2.png" type="image/x-icon" style="border-radius: 50%">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="nav_logo">
+            <a href="{% url 'index' %}">
+            <img class="logo_icon" src="{% static 'img/s m v f r z.svg' %}" alt="" style="width: 120px; margin-bottom: 15px">
+                <img src="{% static 'img/Frame3.svg' %}" alt="" style="height: 60px; width: 60px; margin-right: 50px">
+            </a>
+        </div>
+        {% if not user.is_authenticated %}
+        <div class="admin_prof">
+            <p class="user_name">Username</p>
+            <img src="{% static 'img/user.png' %}" alt="">
+        </div>
+        {% else %}
+        <div class="admin_prof">
+            <p class="user_name">{{ user.username }}</p>
+            <img src="{{ user.photo.url }}" alt="" style="width: 50px; height: 50px">
+
+        </div>
+        {% endif %}
+    </div>
+    <div class="container_content">
+        <div class="sitebar">
+            <div class="bar">
+                <ul class="barlinks">
+                    <a href="">
+                        <li>Movies</li>
+                    </a>
+                </ul>
+                <hr>
+                <p style="margin: 0">
+                    <a class="btn_sitebar" data-toggle="collapse" href="#collapseExample" role="button"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        Pages
+                    </a>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <ul class="link-list">
+                            <p>all pages</p>
+                            <a href="">
+                                <li>Movies</li>
+                            </a>
+                            <a href="">
+                                <li>Movies detail</li>
+                            </a>
+                            <a href="">
+                                <li>Events</li>
+                            </a>
+                            <a href="">
+                                <li>Events detail</li>
+                            </a>
+                            <a href="">
+                                <li>People</li>
+                            </a>
+                            <a href="">
+                                <li>People detail</li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+                <a class="offers" href="">
+                    <li>Offers</li>
+                </a>
+                <p style="margin: 0">
+                    <a class="btn_sitebar" data-toggle="collapse" href="#collapseExtraPages" role="button"
+                        aria-expanded="false" aria-controls="collapseExtraPages">
+                        Extra Pages
+                    </a>
+                </p>
+                <div class="collapse" id="collapseExtraPages">
+                    <div class="card card-body">
+                        <ul class="link-list">
+                            <p>login screens:</p>
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'logout' %}">
+                                <li>Logout</li>
+                            </a>
+                            {% else %}
+                            <a href="{% url 'login' %}">
+                                <li>Login</li>
+                            </a>
+                            <a href="{% url 'register' %}">
+                                <li>Registration</li>
+                            </a>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            {% block content %}
+
+            {% endblock %}
+
+
+        </div>
+
+
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://use.fontawesome.com/7e0a363572.js"></script>
+    <script src="https://use.fontawesome.com/11093fc06f.js"></script>
+
+
+    <script type="text/javascript">(function () {
+            if (window.pluso) if (typeof window.pluso.start == "function") return;
+            if (window.ifpluso === undefined) {
+                window.ifpluso = 1;
+                var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                s.type = 'text/javascript';
+                s.charset = 'UTF-8';
+                s.async = true;
+                s.src = ('https:' == window.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                var h = d[g]('body')[0];
+                h.appendChild(s);
+            }
+        })();</script>
+
+</body>
+
+</html>

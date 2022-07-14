@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Профиль</h3>
+                <br>
+                {% if user.photo.url == True %}
+                    <img src="{{ user.photo.url }}" alt="">
+                {% else %}
+                    <img src="{% static 'img/user.png' %}" alt="">
+                {% endif %}
+                <a href=""></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

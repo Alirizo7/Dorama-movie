@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{movie.title}}
+{% endblock %}
+
+
+{% block content %}
+
+<video class="trailer" controls="controls">
+    <source src="{{ movies.video.url }}" alt="Video yuq">
+</video>
+
+<div class="detail_content">
+    <div class="detail_sitebar">
+        <img src="{{ movies.image.url }}" alt="" class="img_movie">
+        <div class="movie_personal">
+            <h6>Director</h6>
+            <p>{{ movies.director }}</p>
+        </div>
+        <div class="movie_personal">
+            <h6>Writer</h6>
+            <p>{{ movies.writer }}</p>
+        </div>
+        <div class="movie_personal">
+            <h6>Country</h6>
+            <p>{{ movies.country }}</p>
+        </div>
+    </div>
+
+    <div class="movie_content">
+        <div class="movie_title">
+            <div class="locat">
+                <h2 class="movie-detail-title">{{movies.title}}</h2>
+                <button type="button" class="btn btn-primary">Primary</button>
+                <button type="button" class="btn btn-danger">Add to Watchlist +</button>
+            </div>
+            <p class="action">Action / Adventure / Science Fiction / 3D</p>
+            <hr class="line">
+            <div class="locat-budjet">
+                <p class="movie-budget">BUDGET - <b>{{ movies.money }}</b></p>
+                <div class="pluso" data-background="transparent"
+                     data-options="medium,square,line,horizontal,nocounter,theme=04"
+                     data-services="facebook,linkedin,vkontakte,twitter"></div>
+            </div>
+        </div>
+        <div class="movie_detail">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                       aria-controls="home"
+                       aria-selected="true">About film</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                       aria-controls="profile"
+                       aria-selected="false">Actors</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                       aria-controls="contact"
+                       aria-selected="false">Comments</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">{{ movies.about }}
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"></div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <h4>Comment: {{ movies.comment_set.count }}</h4>
+                    {% if user.is_authenticated %}
+                    <form action="{% url 'comment_url' movies.slug %}" method='POST'>
+                        {% csrf_token %}
+                        <textarea name="text" rows="10" class="text-control"></textarea>
+                        <p class="text-right">
+                            <button class=" btn btn-success">Send</button>
+                        </p>
+                    </form>
+                    {% endif %}
+                    <hr>
+                    {% for comment in movies.comment_set.all %}
+                    <h3>{{ comment.user.username }}</h3>
+                    <p>{{ comment.text }}</p>
+                    <p class="text-right">{{ comment.date }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
